@@ -1,0 +1,331 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Reem+Kufi&display=swap"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+    />
+    <link rel="stylesheet" type="text/css" href="{% static 'explore.css' %}" />
+    <title>Tutor Alliance</title>
+  </head>
+
+  <body>
+    <div class="parent">
+      <div class="part1">
+        <nav>
+          <input type="checkbox" id="check" />
+          <label for="check" class="btn">
+            <i class="material-icons">list</i>
+          </label>
+          <label>tutor alliance</label>
+          <ul class="top">
+            {% if fname %}
+            {% if st %}
+            <li><a href="{% url 'explore' id=fname %}">Subjects</a></li>
+            <li><a href="{% url 'all' id=fname %}">Explore</a></li>
+            {% endif %}
+            {% if t %}
+            <li><a href="{% url 'explore' id=fname %}">My Students</a></li>
+            {% endif %}
+            {% if user.is_authenticated %}
+            <li><a href="{% url 'logoutUser' %}">Logout</a></li>
+            {% endif %}
+            {% else %}
+            <li><a href="#" class="login">Login</a></li>
+            {% endif %}
+          </ul>
+        </nav>
+      </div>
+
+      <div class="part2">
+        {% for message in messages %}
+        <h2 class="message">{{message}}</h2>
+        {% endfor %}
+        {% if allT %}
+        <h1 class="welcome">
+          Hey <span id="welcome">{{fname}}</span>,<br/>Explore the world of online learning
+        </h1>
+        {% endif %}
+        <div class="cards">
+          <div class="profiles">
+            {% if allT %}
+            {% for i in allT %}
+            <!-- <form action="{% url 'profile' id=i.f_name %}" id="formid">
+              {% csrf_token %}
+              <button type="submit"> -->
+                <a href="{% url 'profile' id=i.f_name %}" id="redirect">
+                  <div class="card-container">
+                    <img
+                      class="round"
+                      src="https://randomuser.me/api/portraits/women/79.jpg"
+                      alt="user"
+                    />
+                    <h3>{{i.f_name}}</h3>
+                    <h6>{{i.locality}}</h6>
+                    <div class="over">
+                      <p>{{i.overview}}</p>
+                    </div>
+                    <p>Ratings :</p>
+                    <div class="skills">
+                      <h6>Skills</h6>
+                      <ul>
+                        {% for p in i.partial %}
+                        <li>{{p}}</li>
+                        {% endfor %}
+                      </ul>
+                    </div>
+                  </div>
+                  </a>
+              <!-- </button>
+            </form> -->
+            {% endfor %}
+            <div class="first">
+              <div class="card-container">
+                <img
+                  class="round"
+                  src="https://randomuser.me/api/portraits/women/79.jpg"
+                  alt="user"
+                />
+                <h3>Ricky Park</h3>
+                <h6>New York</h6>
+                <p>User interface designer and front-end developer</p>
+                <p>Ratings :</p>
+                <div class="skills">
+                  <h6>Skills</h6>
+                  <ul>
+                    <li>UI / UX</li>
+                    <li>HTML</li>
+                    <li>CSS</li>
+                    <li>JS</li>
+                    <li>React</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <div class="second">
+              <div class="card-container">
+                <img
+                  class="round"
+                  src="https://randomuser.me/api/portraits/women/79.jpg"
+                  alt="user"
+                />
+                <h3>Ricky Park</h3>
+                <h6>New York</h6>
+                <p>User interface designer and front-end developer</p>
+                <p>Ratings :</p>
+                <div class="skills">
+                  <h6>Skills</h6>
+                  <ul>
+                    <li>UI / UX</li>
+                    <li>HTML</li>
+                    <li>CSS</li>
+                    <li>JS</li>
+                    <li>Node</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <div class="third">
+              <div class="card-container">
+                <img
+                  class="round"
+                  src="https://randomuser.me/api/portraits/women/79.jpg"
+                  alt="user"
+                />
+                <h3>Ricky Park</h3>
+                <h6>New York</h6>
+                <p>User interface designer and front-end developer</p>
+                <p>Ratings :</p>
+                <div class="skills">
+                  <h6>Skills</h6>
+                  <ul>
+                    <li>UI / UX</li>
+                    <li>HTML</li>
+                    <li>CSS</li>
+                    <li>JS</li>
+                    <li>Node</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            {% endif %}
+          {% if stu %}
+          {% for i in stu %}
+                <a href="{% url 'profile' id=i.f_name %}" id="redirect">
+                  <div class="card-container">
+                    <img
+                      class="round"
+                      src="https://randomuser.me/api/portraits/women/79.jpg"
+                      alt="user"
+                    />
+                    <h3>{{i.f_name}}</h3>
+                    <h6>{{i.e_mail}}</h6>
+                  </div>
+                  </a>
+            {% endfor %}
+          {% endif %}
+          {% if tu %}
+          {% for i in tu %}
+                <a href="{% url 'sub' id=i.f_name %}" id="redirect">
+                  <div class="card-container">
+                    <img
+                      class="round"
+                      src="https://randomuser.me/api/portraits/women/79.jpg"
+                      alt="user"
+                    />
+                    <h3>{{i.f_name}}</h3>
+                    <h6>{{i.e_mail}}</h6>
+                  </div>
+                  </a>
+            {% endfor %}
+          {% endif %}
+          </div>
+          <h2 class="feedback">User feedback</h2>
+          <div class="user">
+            <div class="sec1">
+              <h3>Stephen</h3>
+              <p>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. In
+                voluptas quis consequuntur quisquam? Adipisci voluptatibus hic
+                asperiores iusto vitae perferendis consectetur vel dolorem
+                architecto aspernatur! Deserunt facilis sunt sapiente neque?
+                Lorem ipsum dolor sit amet consectetur, adipisicing elit. Iste,
+                cupiditate nostrum? Temporibus nihil neque nostrum
+                exercitationem? Voluptas sint deserunt possimus.
+              </p>
+            </div>
+            <div class="sec2">
+              <h3>Daniel</h3>
+              <p>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. In
+                voluptas quis consequuntur quisquam? Adipisci voluptatibus hic
+                asperiores iusto vitae perferendis consectetur vel dolorem
+                architecto aspernatur! Deserunt facilis sunt sapiente neque?
+              </p>
+            </div>
+            <div class="sec3">
+              <h3>Jennifer</h3>
+              <p>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. In
+                voluptas quis consequuntur quisquam? Adipisci voluptatibus hic
+                asperiores iusto vitae perferendis consectetur vel dolorem
+                architecto aspernatur! Deserunt facilis sunt sapiente neque?
+              </p>
+            </div>
+            <div class="sec4">
+              <h3>William</h3>
+              <p>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. In
+                voluptas quis consequuntur quisquam? Adipisci voluptatibus hic
+                asperiores iusto vitae perferendis consectetur vel dolorem
+                architecto aspernatur! Deserunt facilis sunt sapiente
+                neque?Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                Laudantium adipisci suscipit quia natus incidunt libero qui
+                ratione fuga repudiandae deleniti?
+              </p>
+            </div>
+          </div>
+          <div class="faq">
+            <h2>---- FAQs ----</h2>
+            <button class="accordion">Question 1<span>&#8964;</span></button>
+            <div class="panel">
+              <p>
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
+                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
+                enim ad minim veniam, quis nostrud exercitation ullamco laboris
+                nisi ut aliquip ex ea commodo consequat.
+              </p>
+            </div>
+            <button class="accordion">Question 2<span>&#8964;</span></button>
+            <div class="panel">
+              <p>
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
+                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
+                enim ad minim veniam, quis nostrud exercitation ullamco laboris
+                nisi ut aliquip ex ea commodo consequat.
+              </p>
+            </div>
+            <button class="accordion">Question 3<span>&#8964;</span></button>
+            <div class="panel">
+              <p>
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
+                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
+                enim ad minim veniam, quis nostrud exercitation ullamco laboris
+                nisi ut aliquip ex ea commodo consequat.
+              </p>
+            </div>
+            <button class="accordion">Question 4<span>&#8964;</span></button>
+            <div class="panel">
+              <p>
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
+                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
+                enim ad minim veniam, quis nostrud exercitation ullamco laboris
+                nisi ut aliquip ex ea commodo consequat.
+              </p>
+            </div>
+            <button class="accordion">Question 5<span>&#8964;</span></button>
+            <div class="panel">
+              <p>
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
+                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
+                enim ad minim veniam, quis nostrud exercitation ullamco laboris
+                nisi ut aliquip ex ea commodo consequat.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="part3">
+        <ul class="circles">
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+        </ul>
+        <div class="list">
+          <ul>
+            <li><a href="#">About Us</a></li>
+            <li><a href="#">Contact Us</a></li>
+            <li><a href="#">FAQs</a></li>
+            <li><a href="#">Help Centre</a></li>
+          </ul>
+        </div>
+        <div class="icons">
+          <img
+            src="https://img.icons8.com/external-justicon-flat-justicon/36/000000/external-linkedin-social-media-justicon-flat-justicon.png" />
+          <img src="https://img.icons8.com/fluency/36/000000/gmail-new.png" />
+          <img src="https://img.icons8.com/fluency/36/000000/instagram-new.png" />
+          <img src="https://img.icons8.com/color/36/000000/youtube-play.png" />
+          <img src="https://img.icons8.com/color/36/000000/twitter-circled--v1.png" />
+          <img src="https://img.icons8.com/color/36/000000/whatsapp--v1.png" />
+        </div>
+        <div class="seperate"></div>
+        <h3 style="text-align: center">tutor alliance</h3>
+      </div>
+    </div>
+    <script
+      src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"
+      type="text/javascript"
+    ></script>
+    <script src="{% static 'explore.js' %}"></script>
+  </body>
+</html>
